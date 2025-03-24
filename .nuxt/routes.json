@@ -1,0 +1,352 @@
+[
+  {
+    "name": "404",
+    "path": "/404",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\404.vue",
+    "chunkName": "pages/404",
+    "_name": "_916dcee8"
+  },
+  {
+    "name": "about-us",
+    "path": "/about-us",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\about-us.vue",
+    "chunkName": "pages/about-us",
+    "_name": "_c4e2058c"
+  },
+  {
+    "name": "blog",
+    "path": "/blog",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\blog\\\\index.vue",
+    "chunkName": "pages/blog/index",
+    "_name": "_0ea4ca78"
+  },
+  {
+    "name": "cart",
+    "path": "/cart",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\cart\\\\index.vue",
+    "chunkName": "pages/cart/index",
+    "_name": "_64e056f4"
+  },
+  {
+    "name": "coming-soon",
+    "path": "/coming-soon",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\coming-soon.vue",
+    "chunkName": "pages/coming-soon",
+    "_name": "_80fffeca"
+  },
+  {
+    "name": "contact-us",
+    "path": "/contact-us",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\contact-us\\\\index.vue",
+    "chunkName": "pages/contact-us/index",
+    "_name": "_339c265b"
+  },
+  {
+    "name": "electronics",
+    "path": "/electronics",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\electronics.vue",
+    "chunkName": "pages/electronics",
+    "_name": "_0885194b"
+  },
+  {
+    "name": "faq",
+    "path": "/faq",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\faq.vue",
+    "chunkName": "pages/faq",
+    "_name": "_6339bb6a"
+  },
+  {
+    "name": "furniture",
+    "path": "/furniture",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\furniture.vue",
+    "chunkName": "pages/furniture",
+    "_name": "_5d218574"
+  },
+  {
+    "name": "grocery",
+    "path": "/grocery",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\grocery.vue",
+    "chunkName": "pages/grocery",
+    "_name": "_0f5ca7e1"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\login.vue",
+    "chunkName": "pages/login",
+    "_name": "_127b0186"
+  },
+  {
+    "name": "lookbook",
+    "path": "/lookbook",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\lookbook.vue",
+    "chunkName": "pages/lookbook",
+    "_name": "_01fa2564"
+  },
+  {
+    "name": "my-account",
+    "path": "/my-account",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\index.vue",
+    "chunkName": "pages/my-account/index",
+    "_name": "_514d4fcc"
+  },
+  {
+    "name": "pharmacy",
+    "path": "/pharmacy",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\pharmacy.vue",
+    "chunkName": "pages/pharmacy",
+    "_name": "_3ebb828f"
+  },
+  {
+    "name": "privacy-policy",
+    "path": "/privacy-policy",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\privacy-policy.vue",
+    "chunkName": "pages/privacy-policy",
+    "_name": "_c58ba81a"
+  },
+  {
+    "name": "register",
+    "path": "/register",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\register.vue",
+    "chunkName": "pages/register",
+    "_name": "_7225f47f"
+  },
+  {
+    "name": "shop",
+    "path": "/shop",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\shop\\\\index.vue",
+    "chunkName": "pages/shop/index",
+    "_name": "_a3f15a20"
+  },
+  {
+    "name": "vendor-dashboard",
+    "path": "/vendor-dashboard",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\index.vue",
+    "chunkName": "pages/vendor-dashboard/index",
+    "_name": "_0fafd9f7"
+  },
+  {
+    "name": "blog-blog-2",
+    "path": "/blog/blog-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\blog\\\\blog-2.vue",
+    "chunkName": "pages/blog/blog-2",
+    "_name": "_b1df4276"
+  },
+  {
+    "name": "blog-blog-3",
+    "path": "/blog/blog-3",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\blog\\\\blog-3.vue",
+    "chunkName": "pages/blog/blog-3",
+    "_name": "_b1c31374"
+  },
+  {
+    "name": "blog-blog-single-2",
+    "path": "/blog/blog-single-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\blog\\\\blog-single-2.vue",
+    "chunkName": "pages/blog/blog-single-2",
+    "_name": "_7216f6aa"
+  },
+  {
+    "name": "cart-cart-2",
+    "path": "/cart/cart-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\cart\\\\cart-2.vue",
+    "chunkName": "pages/cart/cart-2",
+    "_name": "_29badb7e"
+  },
+  {
+    "name": "cart-cart-3",
+    "path": "/cart/cart-3",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\cart\\\\cart-3.vue",
+    "chunkName": "pages/cart/cart-3",
+    "_name": "_299eac7c"
+  },
+  {
+    "name": "cart-cart-4",
+    "path": "/cart/cart-4",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\cart\\\\cart-4.vue",
+    "chunkName": "pages/cart/cart-4",
+    "_name": "_29827d7a"
+  },
+  {
+    "name": "cart-empty-cart",
+    "path": "/cart/empty-cart",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\cart\\\\empty-cart.vue",
+    "chunkName": "pages/cart/empty-cart",
+    "_name": "_4098819c"
+  },
+  {
+    "name": "contact-us-contact-us-2",
+    "path": "/contact-us/contact-us-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\contact-us\\\\contact-us-2.vue",
+    "chunkName": "pages/contact-us/contact-us-2",
+    "_name": "_13115bd7"
+  },
+  {
+    "name": "my-account-account-details",
+    "path": "/my-account/account-details",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\account-details.vue",
+    "chunkName": "pages/my-account/account-details",
+    "_name": "_78af642c"
+  },
+  {
+    "name": "my-account-account-info-edit",
+    "path": "/my-account/account-info-edit",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\account-info-edit.vue",
+    "chunkName": "pages/my-account/account-info-edit",
+    "_name": "_53dee3f1"
+  },
+  {
+    "name": "my-account-addresses",
+    "path": "/my-account/addresses",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\addresses.vue",
+    "chunkName": "pages/my-account/addresses",
+    "_name": "_48866aea"
+  },
+  {
+    "name": "my-account-checkout-1",
+    "path": "/my-account/checkout-1",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\checkout-1.vue",
+    "chunkName": "pages/my-account/checkout-1",
+    "_name": "_6ed6df52"
+  },
+  {
+    "name": "my-account-checkout-2",
+    "path": "/my-account/checkout-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\checkout-2.vue",
+    "chunkName": "pages/my-account/checkout-2",
+    "_name": "_6ee4f6d3"
+  },
+  {
+    "name": "my-account-compare",
+    "path": "/my-account/compare",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\compare.vue",
+    "chunkName": "pages/my-account/compare",
+    "_name": "_3cb07ead"
+  },
+  {
+    "name": "my-account-downloads",
+    "path": "/my-account/downloads",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\downloads.vue",
+    "chunkName": "pages/my-account/downloads",
+    "_name": "_58fa6bb3"
+  },
+  {
+    "name": "my-account-order-tracking",
+    "path": "/my-account/order-tracking",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\order-tracking.vue",
+    "chunkName": "pages/my-account/order-tracking",
+    "_name": "_b4818b84"
+  },
+  {
+    "name": "my-account-orders",
+    "path": "/my-account/orders",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\orders.vue",
+    "chunkName": "pages/my-account/orders",
+    "_name": "_180a9b4d"
+  },
+  {
+    "name": "my-account-wishlist",
+    "path": "/my-account/wishlist",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\my-account\\\\wishlist.vue",
+    "chunkName": "pages/my-account/wishlist",
+    "_name": "_43abaa2d"
+  },
+  {
+    "name": "product-product-single-2",
+    "path": "/product/product-single-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\product\\\\product-single-2.vue",
+    "chunkName": "pages/product/product-single-2",
+    "_name": "_a76b61e4"
+  },
+  {
+    "name": "product-product-single-3",
+    "path": "/product/product-single-3",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\product\\\\product-single-3.vue",
+    "chunkName": "pages/product/product-single-3",
+    "_name": "_a74f32e2"
+  },
+  {
+    "name": "shop-shop-2",
+    "path": "/shop/shop-2",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\shop\\\\shop-2.vue",
+    "chunkName": "pages/shop/shop-2",
+    "_name": "_60d4886d"
+  },
+  {
+    "name": "shop-shop-3",
+    "path": "/shop/shop-3",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\shop\\\\shop-3.vue",
+    "chunkName": "pages/shop/shop-3",
+    "_name": "_60e29fee"
+  },
+  {
+    "name": "shop-shop-4",
+    "path": "/shop/shop-4",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\shop\\\\shop-4.vue",
+    "chunkName": "pages/shop/shop-4",
+    "_name": "_60f0b76f"
+  },
+  {
+    "name": "shop-shop-5",
+    "path": "/shop/shop-5",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\shop\\\\shop-5.vue",
+    "chunkName": "pages/shop/shop-5",
+    "_name": "_60fecef0"
+  },
+  {
+    "name": "vendor-dashboard-add-product",
+    "path": "/vendor-dashboard/add-product",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\add-product.vue",
+    "chunkName": "pages/vendor-dashboard/add-product",
+    "_name": "_78c12aa8"
+  },
+  {
+    "name": "vendor-dashboard-order",
+    "path": "/vendor-dashboard/order",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\order.vue",
+    "chunkName": "pages/vendor-dashboard/order",
+    "_name": "_287a9a73"
+  },
+  {
+    "name": "vendor-dashboard-product",
+    "path": "/vendor-dashboard/product",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\product.vue",
+    "chunkName": "pages/vendor-dashboard/product",
+    "_name": "_79197854"
+  },
+  {
+    "name": "vendor-dashboard-profile",
+    "path": "/vendor-dashboard/profile",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\profile.vue",
+    "chunkName": "pages/vendor-dashboard/profile",
+    "_name": "_46cd6fe4"
+  },
+  {
+    "name": "vendor-dashboard-setting",
+    "path": "/vendor-dashboard/setting",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\setting.vue",
+    "chunkName": "pages/vendor-dashboard/setting",
+    "_name": "_6a8dbd96"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_2d1adc26"
+  },
+  {
+    "name": "blog-slug",
+    "path": "/blog/:slug",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\blog\\\\_slug.vue",
+    "chunkName": "pages/blog/_slug",
+    "_name": "_12120d08"
+  },
+  {
+    "name": "product-id",
+    "path": "/product/:id?",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\product\\\\_id.vue",
+    "chunkName": "pages/product/_id",
+    "_name": "_145e2687"
+  }
+]
