@@ -21,7 +21,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="product_filter">
                         <div class="customs_selects">
-                            <select name="product" class="customs_sel_box" @change="randomProduct">
+                            <select name="product" class="customs_sel_box" @change="">
                                 <option value="Filter">Filter</option>
                                 <option value="most_popular">Most Popular</option>
                                 <option value="best_seller">Trend</option>
@@ -37,7 +37,7 @@
                             <p>Sort By:</p>
                         </div>
                         <div class="customs_selects">
-                            <select name="product" class="customs_sel_box" @change="randomProduct">
+                            <select name="product" class="customs_sel_box" @change="">
                                 <option value="popularity">Sort by Popularity</option>
                                 <option value="new">Sort by new</option>
                                 <option value="low">Price: low to high</option>
@@ -55,13 +55,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="(product,index) in shuffleproducts" :key="index" v-show="setPaginate(index)">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="(product,index) in this.products" :key="index" v-show="setPaginate(index)">
                     <ProductBox1 :product="product" :index="index" @showalert="alert" @alertseconds="alert" />
                 </div>
 
                 <!-- pagination start -->
                 <div class="col-lg-12">   
-                    <div class="product-pagination mb-0" v-if="shuffleproducts.length > this.paginate">
+                    <div class="product-pagination mb-0" v-if="products.length > this.paginate">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 <li class="page-item">
@@ -179,18 +179,33 @@ export default {
     },
     computed: {
         ...mapState({
-            shuffleproducts: state => state.products.shuffleproducts
+            products: state => state.products.products
         }),
-
     },
     mounted() {
-        this.getPaginate()
-        this.updatePaginate(1)
+        console.log('Shop page mounted - Initial products:', this.products);
+        this.fetchProducts();
+        this.getPaginate();
+        this.updatePaginate(1);
         
         // For scroll page top for every Route 
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
     },
     methods: {
+        // Fetch products from API
+        async fetchProducts() {
+            try {
+                console.log('Fetching products...');
+                const response = await this.$store.dispatch('products/fetchProducts', {
+                    pageNumber: 1,
+                    pageSize: 5
+                });
+                console.log('Products fetched:', this.products.products);
+                return response;
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        },
         // Product added Alert / notificaion 
         alert(item) {
             this.dismissCountDown = item
@@ -198,11 +213,13 @@ export default {
 
         // For Pagination 
         getPaginate() {
-            this.paginates = Math.round(this.shuffleproducts.length / this.paginate)
-            this.page = []
+            console.log('Calculating pagination with products:', this.products);
+            this.paginates = Math.round(this.products.length / this.paginate);
+            this.pages = [];
             for (let i = 0; i < this.paginates; i++) {
-                this.pages.push(i + 1)
+                this.pages.push(i + 1);
             }
+            console.log('Pagination result:', { pages: this.pages, paginates: this.paginates });
         },
         setPaginate(i) {
             if (this.current === 1) {
@@ -235,16 +252,6 @@ export default {
             return this.pages
         },
         // For Shop Left Shorting and Up Shorting 
-        randomProduct(){
-            let array = this.shuffleproducts;
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-            this.$store.dispatch('products/shuffleProduct', array.slice(0, 30))  
-        }
     },
 
     // Page head() Title, description for SEO

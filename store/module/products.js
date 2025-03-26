@@ -1,9 +1,6 @@
-import products from '../../data/products'
-
 const state = {
-    productslist: products.data,
-    products: products.data,
-    shuffleproducts: products.data,
+    productslist: [],
+    products: [],
     wishlist: [],
     compare: [],
     searchProduct: []
@@ -71,11 +68,14 @@ const mutations = {
             })
         }
     },
+    setProducts:(state,payload) =>{
+        state.products = payload;
+    },
     shuffleProduct: (state, payload) => {
         state.shuffleproducts = payload
     },
     getallProduct: (state, payload) => {
-        state.shuffleproducts = products.data
+        state.shuffleproducts = payload
     }
 }
 
@@ -96,13 +96,16 @@ const actions = {
     searchProduct: (context, payload) => {
         context.commit('searchProduct', payload)
     },
-    shuffleProduct: (context, payload) => {
-        context.commit('shuffleProduct', payload)
-    },
-    getallProduct: (context) => {
-        context.commit('getallProduct')
+    fetchProducts: async ({ commit }, { pageNumber = 1, pageSize = 5 } = {}) => {
+        try {
+            const response = await $nuxt.$axios.$get(`/products?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+            commit('setProducts', response.products)
+            return response
+        } catch (error) {
+            console.error('Error fetching products:', error)
+            throw error
+        }
     }
-
 }
 
 export default {

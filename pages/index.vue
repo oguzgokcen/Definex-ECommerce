@@ -335,11 +335,12 @@ export default {
   mounted() {
     // For scroll page top for every Route
     window.scrollTo(0, 0);
-
+    console.log('Mounted - Initial productslist:', this.productslist);
     this.productsArray();
   },
   methods: {
     productsArray: function () {
+      console.log('Before filtering - productslist:', this.productslist);
       this.productslist.map((item) => {
         if (item.type === "fashion") {
           this.products.push(item);
@@ -349,14 +350,18 @@ export default {
           });
         }
       });
+      console.log('After filtering - products:', this.products);
+      console.log('Categories:', this.category);
     },
     // For Product Tab
     getCategoryProduct(collection) {
-      return this.products.filter((item) => {
+      const filteredProducts = this.products.filter((item) => {
         if (item.collection.find((i) => i === collection)) {
           return item;
         }
       });
+      console.log(`Products for category ${collection}:`, filteredProducts);
+      return filteredProducts;
     },
 
     // Product added Alert / notificaion

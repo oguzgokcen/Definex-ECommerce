@@ -29,9 +29,14 @@ export default {
     '@/assets/app.css',
   ],
 
+  extend (config, ctx) {
+    if (ctx.isDev) {
+      config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+    }
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/plugin.js', mode: 'client' }
+    { src: '~/plugins/plugin.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,8 +49,12 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
+    '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
   ],
+  axios: {
+    baseUrl: 'https://localhost:5051'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
