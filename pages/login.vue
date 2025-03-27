@@ -20,36 +20,7 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
                     <div class="account_form">
-                        <h3>Login</h3>
-                        <form @submit.prevent="handleSubmit">
-                            <div class="default-form-box">
-                                <label>Username or email <span>*</span></label>
-                                <input type="text" v-model="user.username" id="username" name="username" class="form-control" :class="{ 'is-invalid': submitted && $v.user.username.$error }" />
-                                <div v-if="submitted && !$v.user.username.required" class="invalid-feedback">Username or Email is required</div>
-                            </div>
-
-                            <div class="default-form-box">
-                                <label for="password">Password</label>
-                                <input type="password" v-model="user.password" id="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && $v.user.password.$error }" />
-                                <div v-if="submitted && $v.user.password.$error" class="invalid-feedback">
-                                    <span v-if="!$v.user.password.required">Password is required</span>
-                                    <span v-if="!$v.user.password.minLength">Password must be at least 6 characters</span>
-                                </div>
-                            </div>
-                                
-                            <div class="login_submit">
-                                <button class="theme-btn-one btn-black-overlay btn_md">login</button>
-                            </div>
-                            
-                            <div class="remember_area">
-                                <label class="checkbox-default">
-                                    <input type="checkbox">
-                                    <span>Remember me</span>
-                                </label>
-                            </div>
-
-                            <nuxt-link to="/register">Create Your Account?</nuxt-link>
-                        </form>
+                        <h3>Processing login...</h3>
                     </div>
                 </div>
             </div>
@@ -60,15 +31,13 @@
 </template>
 
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
+
 export default {
     name: 'Login',
     data() {
         return {
-            
             title: 'Login',
-
-            // Breadcrumb Items Data
             breadcrumbItems: [
                 {
                     text: 'Home',
@@ -77,42 +46,60 @@ export default {
                 {
                     text: 'Login'
                 }
-            ],
-            // Form Validation
-            user: {
-                username: "",
-                email: "",
-                password: "",
-            },
-            submitted: false
-
+            ]
         }
     },
-    validations: {
-        user: {
-            username: { required },
-            password: { required, minLength: minLength(6) },
-        }
-    },
-    mounted() {  
-        // For scroll page top for every Route 
+    async mounted() {  
         window.scrollTo(0, 0)
+        await this.handleKeycloakCallback();
     },
     methods: {
-        handleSubmit(e) {
-            this.submitted = true;
+        ...mapActions({
+            login: 'auth/login'
+        }),
 
-            // stop here if form is invalid
-            this.$v.$touch();
-            if (this.$v.$invalid) {
-                return;
+        async handleKeycloakCallback() {
+            try {
+                // Get the authorization code from URL
+                const code = this.$route.query.code;
+                
+                if (!code) {
+                    // If no code, redirect to Keycloak login
+                    window.location.href = 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/auth?client_id=public-client&response_type=code&scope=openid email&redirect_uri=http://localhost:3000/';
+                    return;
+                }
+
+                // Exchange code for token
+                const response = await this.$axios.post('http://localhost:8080/realms/e-commerce/protocol/openid-connect/token', 
+                    new URLSearchParams({
+                        grant_type: 'authorization_code',
+                        client_id: 'public-client',
+                        code: code,
+                        redirect_uri: 'http://localhost:3000/login'
+                    }), {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }
+                );
+
+                if (response.data && response.data.access_token) {
+                    // Store token in Vuex
+                    await this.login(response.data);
+                    
+                    // Redirect to the original URL or home
+                    const redirectUrl = '/';
+                    this.$router.push(redirectUrl);
+                } else {
+                    throw new Error('Invalid token response');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                // Redirect to home page on error
+                this.$router.push('/');
             }
-            
-            this.$router.push('/'); 
         }
     },
-
-    // Page head() Title, description for SEO 
     head() {
       return {
         title: this.title,
@@ -125,6 +112,22 @@ export default {
         ]
       }
     }
-
 }
 </script>
+
+<style scoped>
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+</style>

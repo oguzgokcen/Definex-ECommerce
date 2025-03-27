@@ -276,7 +276,7 @@ export default {
         {
           id: 9,
           blogThumb: require("assets/img/blog/post9.png"),
-          blogTitle: "The Luxury Winter Accessory That’s Trending Now",
+          blogTitle: "The Luxury Winter Accessory That's Trending Now",
           blogDescription:
             "No matter what you spend on your wardrobe, there are three pieces that can always elevate your look – shoes, handbags, and sunglasses.",
           blogPublishDate: "24 February 2021",
@@ -337,6 +337,14 @@ export default {
     window.scrollTo(0, 0);
     console.log('Mounted - Initial productslist:', this.productslist);
     this.productsArray();
+
+    // Check for loggedout parameter
+    if (this.$route.query.loggedout === 'true') {
+      // Clear the token
+      this.$store.dispatch('auth/logout');
+      // Remove the query parameter from URL
+      this.$router.replace({ query: {} });
+    }
   },
   methods: {
     productsArray: function () {

@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- Add hidden logout link -->
+    <a ref="logoutLink" style="display: none;"></a>
     <!-- Start Header Area -->
     <header class="header-section d-none d-xl-block">
       <div class="header-wrapper">
@@ -82,12 +84,19 @@
                     action-hover-color--golden
                   "
                 >
-                  <li>
-                    <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
-                      <i class="far fa-heart"></i>
-                      <span class="item-count">{{ wishlist.length }}</span>
-                    </a>
-                  </li>
+                <li v-if="!isAuthenticated">
+                  <a :href="keycloakLoginUrl" class="auth-btn login-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Giriş</span>
+                  </a>
+                </li>
+                <li v-else>
+                  <a :href="keycloakLogoutUrl" class="auth-btn logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış</span>
+                  </a>
+                </li>
+                  
                   <li>
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                       <i class="fas fa-shopping-bag"></i>
@@ -235,6 +244,18 @@
         </ul>
 
         <ul class="user-link">
+          <li v-if="!isAuthenticated">
+            <a :href="keycloakLoginUrl" class="mobile-auth-btn login-btn">
+              <i class="fas fa-user"></i>
+              <span>Giriş Yap</span>
+            </a>
+          </li>
+          <li v-else>
+            <a :href="keycloakLogoutUrl" class="mobile-auth-btn logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Çıkış Yap</span>
+            </a>
+          </li>
           <li><nuxt-link to="/my-account/wishlist">Favoriler</nuxt-link></li>
           <li><nuxt-link to="/cart/">Sepet</nuxt-link></li>
           <li><nuxt-link to="/my-account/checkout-1">Siparişi Tamamla</nuxt-link></li>
@@ -486,7 +507,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -664,6 +685,9 @@ export default {
       category: [],
       cartproduct: {},
       searchString: "",
+      keycloakLoginUrl: 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/auth?client_id=public-client&response_type=code&redirect_uri=http://localhost:3000/login',
+      keycloakRegisterUrl: 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/registrations?client_id=public-client&response_type=code&redirect_uri=http://localhost:3000',
+      keycloakLogoutUrl: 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/logout?post_logout_redirect_uri=http://localhost:3000?loggedout=true&client_id=public-client'
     };
   },
 
@@ -702,10 +726,23 @@ export default {
       cart: "cart/cartItems",
       cartTotal: "cart/cartTotalAmount",
       wishlist: "products/wishlistItems",
+      isAuthenticated: "auth/isAuthenticated"
     }),
   },
 
   methods: {
+    ...mapActions({
+      logout: "auth/logout"
+    }),
+
+    async handleLogout() {
+      const logoutUrl = await this.$store.dispatch('auth/logout');
+      // Set the href of the hidden link
+      this.$refs.logoutLink.href = logoutUrl;
+      // Trigger click on the hidden link
+      this.$refs.logoutLink.click();
+    },
+
     // Image Url
     getImageUrl(path) {
       return require("@/assets/img/product-image/" + path);
@@ -750,4 +787,84 @@ export default {
   box-shadow: 3px 0px 0px 0px var(--main-theme-color) inset;
 }
 /* Mobile Menu Multi Dropdown Items End */
+
+/* Auth Button Styles */
+.auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-right:25px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.auth-btn i {
+  font-size: 16px;
+}
+
+.login-btn {
+  color: var(--main-theme-color);
+}
+
+.login-btn:hover {
+  background-color: rgba(var(--main-theme-color-rgb), 0.1);
+}
+
+.logout-btn {
+  color: #dc3545;
+}
+
+.logout-btn:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Mobile Auth Button Styles */
+.mobile-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.mobile-auth-btn i {
+  font-size: 18px;
+}
+
+.mobile-auth-btn span {
+  display: inline-block;
+}
+
+.mobile-auth-btn.login-btn {
+  color: var(--main-theme-color);
+}
+
+.mobile-auth-btn.login-btn:hover {
+  background-color: rgba(var(--main-theme-color-rgb), 0.1);
+  color: var(--main-theme-color);
+}
+
+.mobile-auth-btn.logout-btn {
+  color: #dc3545;
+}
+
+.mobile-auth-btn.logout-btn:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
 </style>
