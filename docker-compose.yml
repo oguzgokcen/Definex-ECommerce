@@ -1,7 +1,13 @@
 services:
   catalogdb:
     image: postgres
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.4
+  keycloakdb:
+    image: postgres
+    
 
 
 volumes:
   postgres_catalog:
+  postgres_keycloak:
