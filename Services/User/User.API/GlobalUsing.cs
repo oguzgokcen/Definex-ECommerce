@@ -6,3 +6,4 @@ global using CommonConcerns.CQRS;
 global using CommonConcerns.Behaviors;
 global using FluentValidation;
 global using Marten.Pagination;
+global using CommonConcerns.Models;

@@ -5,7 +5,7 @@ using User.API.Exceptions;
 
 namespace User.API.Users.LoginUser;
 
-public record LoginUserCommand(string Email, string Password) : ICommand<LoginUserResult>;
+public record LoginUserCommand(string Username, string Password) : ICommand<LoginUserResult>;
 
 public record LoginUserResult(string Token);
 
@@ -13,7 +13,7 @@ public class LoginUserAbstractValidator : AbstractValidator<LoginUserCommand>
 {
 	public LoginUserAbstractValidator()
 	{
-		RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required");
+		RuleFor(x => x.Username).NotEmpty().WithMessage("Email is required");
 		RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required");
 	}
 }
@@ -25,7 +25,7 @@ public class LoginHandler: ICommandHandler<LoginUserCommand, LoginUserResult>
 		{
 			var keycloakUrl = "http://localhost:8080/realms/e-commerce/protocol/openid-connect/token";
 			var clientId = "public-client2";
-			var username = command.Email;
+			var username = command.Username;
 			var password = command.Password;
 			var clientSecret = "HSHBbbBVj3BRM6jJoAyuPKMGtHVI0a7Y";
 			var authHeader = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientId}:{clientSecret}"));

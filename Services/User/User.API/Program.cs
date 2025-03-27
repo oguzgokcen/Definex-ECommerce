@@ -32,7 +32,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 app.MapCarter();
 app.UseExceptionHandler(options => { });
-app.MapGet("users/me", (ClaimsPrincipal claimsPrincipal) =>
+app.MapGet("user/me", (ClaimsPrincipal claimsPrincipal) =>
 {
 	return claimsPrincipal.Claims.Select(c => new { c.Type, c.Value });
 }).RequireAuthorization();

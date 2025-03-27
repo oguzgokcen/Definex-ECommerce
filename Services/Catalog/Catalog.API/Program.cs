@@ -8,11 +8,6 @@ builder.Services.AddMediatR(config =>
 	config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 	config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
-builder.Services.AddCors(options =>
-{
-	options.AddPolicy("AllowAll",
-		builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-});
 builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddCarter();
@@ -28,6 +23,5 @@ if (builder.Environment.IsDevelopment())
 var app = builder.Build();
 
 app.MapCarter();
-app.UseCors("AllowAll");
 
 app.Run();

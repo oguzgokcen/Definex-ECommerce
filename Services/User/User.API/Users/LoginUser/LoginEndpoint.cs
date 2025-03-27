@@ -4,7 +4,7 @@ public class LoginEndpoint : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapPost("/users/login", async (LoginUserCommand request, ISender sender) =>
+		app.MapPost("/user/login", async (LoginUserCommand request, ISender sender) =>
 		{
 			var result = await sender.Send(request);
 			var response = result.Adapt<LoginUserResult>();
