@@ -41,3 +41,14 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: password
+  orderdb:
+    container_name: orderdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=OrderDb
+    restart: always
+    ports:
+        - "5433:5432"
+    volumes:
+      - postgres_order:/var/lib/postgresql/data/
