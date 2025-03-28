@@ -131,26 +131,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Blue Dress For Woman <span class="product-qty">x 2</span>
-                                            </td>
-                                            <td>$90.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lether Gray Tuxedo <span class="product-qty">x 1</span>
-                                            </td>
-                                            <td>$55.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Woman Full Sliv Dresss <span class="product-qty">x 3</span>
-                                            </td>
-                                            <td>$204.00</td>
+                                        <tr v-for="item in cart" :key="item.id">
+                                            <td>{{ item.title }} <span class="product-qty">x {{ item.quantity }}</span></td>
+                                            <td>${{ item.discount ? discountedPrice(item) : item.price }}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>SubTotal</th>
-                                            <td class="product-subtotal">$349.00</td>
+                                            <td class="product-subtotal">${{ cartTotal }}</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping</th>
@@ -158,7 +147,7 @@
                                         </tr>
                                         <tr>
                                             <th>Total</th>
-                                            <td class="product-subtotal">$349.00</td>
+                                            <td class="product-subtotal">${{ cartTotal }}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -192,7 +181,8 @@
                                             credit card if you don't have a PayPal account.</p>
                                     </div>
                                 </div>
-                            </div><button class="theme-btn-one btn-black-overlay btn_sm">Place Order</button>
+                            </div>
+                            <button type="submit" class="theme-btn-one btn-black-overlay btn_sm">Place Order</button>
                         </div>
                     </div>
                 </div>
@@ -205,6 +195,8 @@
 
 <script>
 import { required, email } from "vuelidate/lib/validators";
+import { mapState, mapGetters } from 'vuex';
+
 export default {
     name: 'checkout-1',
 
@@ -238,6 +230,14 @@ export default {
 
         }
     },
+    computed: {
+        ...mapState({
+            cart: state => state.cart.cart
+        }),
+        ...mapGetters({
+            cartTotal: 'cart/cartTotalAmount'
+        })
+    },
     validations: {
         user: {
             fname: { required },
@@ -251,7 +251,10 @@ export default {
         window.scrollTo(0, 0)
     },
     methods: {
-        handleSubmit(e) {
+        discountedPrice(product) {
+            return product.price - (product.price * product.discount) / 100;
+        },
+        async handleSubmit(e) {
             this.submitted = true;
 
             // stop here if form is invalid
@@ -259,7 +262,39 @@ export default {
             if (this.$v.$invalid) {
                 return;
             }
-            alert("Order placed Successfully! Thank you for shopping with us.");
+
+            try {
+                // Prepare order items
+                console.log(this.cart)
+                const orderItems = this.cart.map(item => ({
+                    productId: item.id,
+                    quantity: item.quantity
+                }));
+
+                // Create order payload
+                const orderPayload = {
+                    price: this.cartTotal,
+                    items: orderItems
+                };
+
+                // Make API request
+                const response = await this.$axios.post(`/order/create`, orderPayload, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (response.data) {
+                    // Clear cart after successful order
+                    this.$store.dispatch('cart/clearCart');
+                    alert("Order placed Successfully! Thank you for shopping with us.");
+                    // Redirect to orders page
+                    this.$router.push('/my-account/orders');
+                }
+            } catch (error) {
+                console.error('Order creation failed:', error);
+                alert("Failed to place order. Please try again.");
+            }
         }
     },
 
@@ -276,6 +311,5 @@ export default {
         ]
       }
     }
-
 }
 </script>

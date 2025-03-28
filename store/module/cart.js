@@ -1,7 +1,4 @@
-import products from '../../data/products'
-
 const state = {
-  products: products.data,
   cart: []
 }
 // getters
@@ -36,18 +33,16 @@ const actions = {
 // mutations
 const mutations = {
   addToCart: (state, payload) => {
-    const product = state.products.find(item => item.id === payload.id)
     const cartItems = state.cart.find(item => item.id === payload.id)
     const qty = payload.quantity ? payload.quantity : 1
     if (cartItems) {
       cartItems.quantity = qty
     } else {
       state.cart.push({
-        ...product,
+        ...payload,
         quantity: qty
       })
     }
-    product.stock--
   },
   updateCartQuantity: (state, payload) => {
     // Calculate Product Stock Counts

@@ -6,6 +6,7 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<ChatWidget>` | `<chat-widget>` (components/ChatWidget.vue)
 - `<Footer>` | `<footer>` (components/Footer.vue)
 - `<Header>` | `<header>` (components/Header.vue)
 - `<BlogItem1>` | `<blog-item1>` (components/blog/BlogItem1.vue)
@@ -17,11 +18,11 @@ You can directly use them in pages and other components without the need to impo
 - `<InstagramAreaElectronics>` | `<instagram-area-electronics>` (components/instagram/InstagramAreaElectronics.vue)
 - `<InstagramAreaFurniture>` | `<instagram-area-furniture>` (components/instagram/InstagramAreaFurniture.vue)
 - `<InstagramSliderItem>` | `<instagram-slider-item>` (components/instagram/InstagramSliderItem.vue)
+- `<WidgetsRelatedProducts>` | `<widgets-related-products>` (components/widgets/RelatedProducts.vue)
+- `<WidgetsShopSidebar>` | `<widgets-shop-sidebar>` (components/widgets/ShopSidebar.vue)
+- `<WidgetsTimer>` | `<widgets-timer>` (components/widgets/Timer.vue)
 - `<ProductBox1>` | `<product-box1>` (components/product-box/ProductBox1.vue)
 - `<ProductBox2>` | `<product-box2>` (components/product-box/ProductBox2.vue)
 - `<ProductBox3>` | `<product-box3>` (components/product-box/ProductBox3.vue)
 - `<ProductBox4>` | `<product-box4>` (components/product-box/ProductBox4.vue)
 - `<ProductBox5>` | `<product-box5>` (components/product-box/ProductBox5.vue)
-- `<WidgetsRelatedProducts>` | `<widgets-related-products>` (components/widgets/RelatedProducts.vue)
-- `<WidgetsShopSidebar>` | `<widgets-shop-sidebar>` (components/widgets/ShopSidebar.vue)
-- `<WidgetsTimer>` | `<widgets-timer>` (components/widgets/Timer.vue)

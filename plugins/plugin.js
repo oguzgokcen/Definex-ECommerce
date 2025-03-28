@@ -17,7 +17,6 @@ require('vue2-animate/dist/vue2-animate.min.css')
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 
-
 Vue.use(VueAwesomeSwiper)
 Vue.component('inner-image-zoom', InnerImageZoom)
 Vue.use(VueSidebarMenu)

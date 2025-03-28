@@ -84,10 +84,8 @@ export default {
                 );
 
                 if (response.data && response.data.access_token) {
-                    // Store token in Vuex
                     await this.login(response.data);
-                    
-                    // Redirect to the original URL or home
+                    console.log("redirecting")
                     const redirectUrl = '/';
                     this.$router.push(redirectUrl);
                 } else {

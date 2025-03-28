@@ -50,6 +50,7 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
+    'jwt-decode'
   ],
   axios: {
     baseUrl: 'https://localhost:5054'

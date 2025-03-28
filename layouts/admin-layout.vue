@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <Header />
     <div>
+        <Header />
         <!-- Banner Area -->
         <section id="common_banner_one">
             <div class="container ">
@@ -17,37 +16,37 @@
         </section>
 
         <!-- My Account-Area -->
-        <section id="my-account_area" class="ptb-100">
+        <section id="vendor_area" class="ptb-100">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <!-- Nav tabs -->
                         <div class="dashboard_tab_button">
                             <b-navbar-nav>
-                                <b-nav-item to="/my-account"><i class="fas fa-tachometer-alt"></i>Dashboard</b-nav-item>
-                                <b-nav-item to="/my-account/orders"><i class="fas fa-cart-arrow-down"></i>Orders</b-nav-item>
-                                <b-nav-item to="/my-account/addresses"><i class="fas fa-map-marker-alt"></i>Addresses</b-nav-item>
-                                <b-nav-item to="/my-account/account-details"><i class="fas fa-user"></i>Account details</b-nav-item>
-                                <b-nav-item to="/login"><i class="fas fa-sign-out-alt"></i>Logout</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/"><i class="fas fa-tachometer-alt"></i>Dashboard</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/product"><i class="fas fa-shopping-cart"></i>Product</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/order"><i class="fas fa-shopping-bag"></i>Order</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/profile"><i class="far fa-id-badge"></i>Profile</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/add-product"><i class="fas fa-cart-plus"></i>Add Product</b-nav-item>
+                                <b-nav-item to="/vendor-dashboard/setting"><i class="fas fa-user-cog"></i>Setting</b-nav-item>
                             </b-navbar-nav>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <div class="dashboard_content">
-                            <nuxt />
+                            <nuxt/>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <Footer/>
     </div>
-    <Footer />
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'MyAccountLayout',
-  middleware: 'auth'
+  name: 'AdminLayout',
+  middleware: 'admin'
 }
 </script> 

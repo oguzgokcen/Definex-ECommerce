@@ -5,6 +5,7 @@
       <Nuxt />
     </transition>
     <Footer />
+    <ChatWidget />
   </div>
 </template>
 

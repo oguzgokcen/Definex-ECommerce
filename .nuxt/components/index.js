@@ -1,3 +1,4 @@
+export { default as ChatWidget } from '../..\\components\\ChatWidget.vue'
 export { default as Footer } from '../..\\components\\Footer.vue'
 export { default as Header } from '../..\\components\\Header.vue'
 export { default as BlogItem1 } from '../..\\components\\blog\\BlogItem1.vue'
@@ -9,14 +10,14 @@ export { default as InstagramArea } from '../..\\components\\instagram\\Instagra
 export { default as InstagramAreaElectronics } from '../..\\components\\instagram\\InstagramAreaElectronics.vue'
 export { default as InstagramAreaFurniture } from '../..\\components\\instagram\\InstagramAreaFurniture.vue'
 export { default as InstagramSliderItem } from '../..\\components\\instagram\\InstagramSliderItem.vue'
+export { default as WidgetsRelatedProducts } from '../..\\components\\widgets\\RelatedProducts.vue'
+export { default as WidgetsShopSidebar } from '../..\\components\\widgets\\ShopSidebar.vue'
+export { default as WidgetsTimer } from '../..\\components\\widgets\\Timer.vue'
 export { default as ProductBox1 } from '../..\\components\\product-box\\ProductBox1.vue'
 export { default as ProductBox2 } from '../..\\components\\product-box\\ProductBox2.vue'
 export { default as ProductBox3 } from '../..\\components\\product-box\\ProductBox3.vue'
 export { default as ProductBox4 } from '../..\\components\\product-box\\ProductBox4.vue'
 export { default as ProductBox5 } from '../..\\components\\product-box\\ProductBox5.vue'
-export { default as WidgetsRelatedProducts } from '../..\\components\\widgets\\RelatedProducts.vue'
-export { default as WidgetsShopSidebar } from '../..\\components\\widgets\\ShopSidebar.vue'
-export { default as WidgetsTimer } from '../..\\components\\widgets\\Timer.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

@@ -276,7 +276,7 @@ export default {
         {
           id: 9,
           blogThumb: require("assets/img/blog/post9.png"),
-          blogTitle: "The Luxury Winter Accessory That's Trending Now",
+          blogTitle: "The Luxury Winter Accessory That’s Trending Now",
           blogDescription:
             "No matter what you spend on your wardrobe, there are three pieces that can always elevate your look – shoes, handbags, and sunglasses.",
           blogPublishDate: "24 February 2021",
