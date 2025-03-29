@@ -7,48 +7,93 @@
 
     <div v-if="isOpen" class="chat-interface">
       <div class="chat-header">
-        <h4>Customer Support</h4>
+        <h4>Müşteri Hizmetleri</h4>
         <button class="close-btn" @click="toggleChat">
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div class="chat-messages" ref="messageContainer">
-        <div v-for="(message, index) in messages" :key="index" 
-             :class="['message', message.type]">
-          <div class="message-content">
-            {{ message.text }}
+      
+      <div v-if="!isAuthenticated" class="auth-message">
+        <i class="fas fa-lock"></i>
+        <p>Mesajlaşmak için giriş yapmanız gerekmektedir</p>
+        <a :href="keycloakLoginUrl" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          Giriş Yap
+        </a>
+      </div>
+
+      <template v-else>
+        <div class="chat-messages" ref="messageContainer">
+          <div v-for="(message, index) in messages" :key="index" 
+               :class="['message', message.type]">
+            <div class="message-content">
+              {{ message.text }}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="chat-input">
-        <input 
-          v-model="newMessage" 
-          @keyup.enter="sendMessage"
-          placeholder="Type your message..."
-          type="text"
-        >
-        <button @click="sendMessage">
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
+        <div class="chat-input">
+          <input 
+            v-model="newMessage" 
+            @keyup.enter="sendMessage"
+            placeholder="Mesajınızı giriniz..."
+            type="text"
+          >
+          <button @click="sendMessage">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ChatWidget',
   data() {
     return {
       isOpen: false,
       newMessage: '',
-      messages: [
-        {
-          text: 'Hello! How can we help you today?',
-          type: 'received'
+      messages: [],
+      unreadCount: 0,
+      keycloakLoginUrl: 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/auth?client_id=public-client&response_type=code&redirect_uri=http://localhost:3000/login'
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated'
+    })
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$signalR.startConnection();
+
+      this.$signalR.onMessageReceived((message) => {
+        this.messages.push({
+          text: message.content,
+          type: 'received',
+        });
+        if (!this.isOpen) {
+          this.unreadCount++;
         }
-      ],
-      unreadCount: 0
+      });
+
+      this.$signalR.onErrorReceived((errorMessage) => {
+        alert(errorMessage);
+      });
+
+      // Initial message
+      this.messages.push({
+        text: 'Merhaba, nasıl yardımcı olabiliriz?',
+        type: 'received',
+      });
+    }
+  },
+  beforeDestroy() {
+    if (this.isAuthenticated) {
+      this.$signalR.stopConnection();
     }
   },
   methods: {
@@ -56,42 +101,21 @@ export default {
       this.isOpen = !this.isOpen;
       if (this.isOpen) {
         this.unreadCount = 0;
-        this.$nextTick(() => {
-          this.scrollToBottom();
-        });
       }
     },
     sendMessage() {
-      if (this.newMessage.trim()) {
-        this.messages.push({
+      if (this.newMessage.trim() && this.isAuthenticated) {
+        const message = {
           text: this.newMessage,
-          type: 'sent'
-        });
+          type: 'sent',
+        };
+        this.messages.push(message);
+        this.$signalR.sendMessageToAdmin(this.newMessage);
         this.newMessage = '';
-        this.$nextTick(() => {
-          this.scrollToBottom();
-        });
-        // Here you can add API call to send message to backend
-        this.simulateResponse();
       }
-    },
-    scrollToBottom() {
-      const container = this.$refs.messageContainer;
-      container.scrollTop = container.scrollHeight;
-    },
-    simulateResponse() {
-      setTimeout(() => {
-        this.messages.push({
-          text: 'Thank you for your message. Our team will get back to you soon.',
-          type: 'received'
-        });
-        this.$nextTick(() => {
-          this.scrollToBottom();
-        });
-      }, 1000);
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -177,36 +201,39 @@ export default {
 }
 
 .chat-messages {
+  display:flex;
+  flex-direction:column;
   flex: 1;
   padding: 15px;
   overflow-y: auto;
 }
 
 .message {
+  display: flex;
+  justify-content: flex-start;
   margin-bottom: 10px;
   max-width: 80%;
 }
 
 .message.sent {
-  margin-left: auto;
+  align-self: self-end; 
 }
 
 .message-content {
   padding: 8px 12px;
   border-radius: 15px;
   display: inline-block;
+  max-width: 100%; 
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  white-space: normal;
 }
 
 .message.sent .message-content {
   background-color: #007bff;
   color: white;
   border-radius: 15px 15px 0 15px;
-}
-
-.message.received .message-content {
-  background-color: #f1f1f1;
-  color: #333;
-  border-radius: 15px 15px 15px 0;
+  text-align: right;
 }
 
 .chat-input {
@@ -240,5 +267,49 @@ export default {
 
 .chat-input button:hover {
   background-color: #0056b3;
+}
+
+.auth-message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+.auth-message i {
+  font-size: 48px;
+  color: #dc3545;
+  margin-bottom: 15px;
+}
+
+.auth-message p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--main-theme-color);
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: var(--main-theme-color-dark);
+}
+
+.login-btn i {
+  font-size: 16px;
+  color: white;
 }
 </style> 

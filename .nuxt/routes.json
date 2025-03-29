@@ -301,6 +301,13 @@
     "_name": "_78c12aa8"
   },
   {
+    "name": "vendor-dashboard-chat",
+    "path": "/vendor-dashboard/chat",
+    "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\chat.vue",
+    "chunkName": "pages/vendor-dashboard/chat",
+    "_name": "_5fed7cc3"
+  },
+  {
     "name": "vendor-dashboard-order",
     "path": "/vendor-dashboard/order",
     "component": "C:\\\\Users\\\\HP\\\\Desktop\\\\Vue.js deneme\\\\andshop-vue\\\\pages\\\\vendor-dashboard\\\\order.vue",

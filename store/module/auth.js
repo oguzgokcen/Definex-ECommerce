@@ -19,12 +19,19 @@ const mutations = {
 };
 
 const actions = {
+  // Initialize auth state from localStorage
   initAuth({ commit }) {
     const token = localStorage.getItem('token');
 
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
+        // Check if token is expired
+        if (decodedToken.exp * 1000 < Date.now()) {
+          commit('CLEAR_AUTH');
+          localStorage.removeItem('token');
+          return;
+        }
         commit('SET_TOKEN', token);
         commit('SET_USER', {
           ...decodedToken,
@@ -67,7 +74,15 @@ const actions = {
 };
 
 const getters = {
-  isAuthenticated: (state) => !!state.token,
+  isAuthenticated: (state) => {
+    if (!state.token) return false;
+    try {
+      const decodedToken = jwtDecode(state.token);
+      return decodedToken.exp * 1000 > Date.now();
+    } catch (error) {
+      return false;
+    }
+  },
   currentUser: (state) => state.user,
   isAdmin: (state) => state.user && state.user.roles && state.user.roles.includes('ADMIN')
 };

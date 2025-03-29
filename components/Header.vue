@@ -84,18 +84,18 @@
                     action-hover-color--golden
                   "
                 >
-                <li v-if="!isAuthenticated">
+                <div v-if="!isAuthenticated">
                   <a :href="keycloakLoginUrl" class="auth-btn login-btn">
                     <i class="fas fa-user"></i>
-                    <span>Giriş</span>
+                    <label>Giriş</label>
                   </a>
-                </li>
-                <li v-else>
+                </div>
+                <div v-else>
                   <a :href="keycloakLogoutUrl" class="auth-btn logout-btn">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Çıkış</span>
                   </a>
-                </li>
+                </div>
                   
                   <li>
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">

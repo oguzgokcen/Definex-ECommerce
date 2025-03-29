@@ -47,6 +47,7 @@ const _60e29fee = () => interopDefault(import('..\\pages\\shop\\shop-3.vue' /* w
 const _60f0b76f = () => interopDefault(import('..\\pages\\shop\\shop-4.vue' /* webpackChunkName: "pages/shop/shop-4" */))
 const _60fecef0 = () => interopDefault(import('..\\pages\\shop\\shop-5.vue' /* webpackChunkName: "pages/shop/shop-5" */))
 const _78c12aa8 = () => interopDefault(import('..\\pages\\vendor-dashboard\\add-product.vue' /* webpackChunkName: "pages/vendor-dashboard/add-product" */))
+const _5fed7cc3 = () => interopDefault(import('..\\pages\\vendor-dashboard\\chat.vue' /* webpackChunkName: "pages/vendor-dashboard/chat" */))
 const _287a9a73 = () => interopDefault(import('..\\pages\\vendor-dashboard\\order.vue' /* webpackChunkName: "pages/vendor-dashboard/order" */))
 const _79197854 = () => interopDefault(import('..\\pages\\vendor-dashboard\\product.vue' /* webpackChunkName: "pages/vendor-dashboard/product" */))
 const _46cd6fe4 = () => interopDefault(import('..\\pages\\vendor-dashboard\\profile.vue' /* webpackChunkName: "pages/vendor-dashboard/profile" */))
@@ -238,6 +239,10 @@ export const routerOptions = {
     path: "/vendor-dashboard/add-product",
     component: _78c12aa8,
     name: "vendor-dashboard-add-product"
+  }, {
+    path: "/vendor-dashboard/chat",
+    component: _5fed7cc3,
+    name: "vendor-dashboard-chat"
   }, {
     path: "/vendor-dashboard/order",
     component: _287a9a73,
