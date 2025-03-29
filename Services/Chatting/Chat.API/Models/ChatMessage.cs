@@ -1,11 +1,11 @@
 namespace Chat.API.Models
 {
-    public class ChatMessage
-    {
-        public string Message { get; set; }
-        public Guid SenderId { get; set; }
-        public Guid ReceiverId { get; set; }
-        public DateTime Timestamp { get; set; }
-        public bool IsAdmin { get; set; }
-    }
+	public class ChatMessage
+	{
+		public Guid Id { get; set; }
+		public string Content { get; set; }
+		public DateTime Time { get; set; }
+		public bool Sent { get; set; }
+		public Guid ConversationId { get; set; }
+	}
 } 

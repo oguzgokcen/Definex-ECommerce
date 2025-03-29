@@ -3,6 +3,8 @@ services:
     image: postgres
   orderdb:
     image: postgres
+  chatdb:
+    image: postgres
   keycloak:
     image: quay.io/keycloak/keycloak:26.1.4
   keycloakdb:
@@ -14,3 +16,4 @@ volumes:
   postgres_catalog:
   postgres_keycloak:
   postgres_order:
+  postgres_chat:

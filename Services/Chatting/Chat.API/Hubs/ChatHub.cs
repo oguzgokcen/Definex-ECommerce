@@ -1,89 +1,97 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using Chat.API.Models;
+﻿using Chat.API.Models;
+using Chat.API.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
 namespace Chat.API.Hubs;
 
 public class ChatHub : Hub
 {
-    private static readonly Dictionary<Guid, string> _userConnections = new();
-    private static readonly Dictionary<Guid, bool> _adminUsers = new();
+	private readonly IChatRepository _chatRepository;
 
-    public override async Task OnConnectedAsync()
-    {
-        var user =Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var isAdmin = Context.User?.IsInRole("Admin") ?? false;
+	public ChatHub(IChatRepository chatRepository)
+	{
+		_chatRepository = chatRepository;
+	}
 
-        if (user != null)
-        {
-            var userId = Guid.Parse(user);
-			_userConnections[userId] = Context.ConnectionId;
-            _adminUsers[userId] = isAdmin;
+	public override async Task OnConnectedAsync()
+	{
+		var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		var userName = Context.User?.FindFirst("name")?.Value ?? "user";
+		var isAdmin = KeycloakHelper.UserHasRealmRole(Context.User, "admin");
 
-            if (isAdmin)
-            {
-                await Groups.AddToGroupAsync(Context.ConnectionId, "Admins");
-            }
-            else
-            {
-                await Groups.AddToGroupAsync(Context.ConnectionId, "Customers");
-            }
-        }
+		if (userId != null)
+		{
+			if (isAdmin)
+			{
+				await Groups.AddToGroupAsync(Context.ConnectionId, "Admins");
+			}
+			else
+			{
+				await Groups.AddToGroupAsync(Context.ConnectionId, "Customers");
+			}
+		}
 
-        await base.OnConnectedAsync();
-    }
+		await base.OnConnectedAsync();
+	}
 
-    public override async Task OnDisconnectedAsync(Exception? exception)
-    {
-        var user = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (user != null)
-        {
-			var userId = Guid.Parse(user);
-			_userConnections.Remove(userId);
-            _adminUsers.Remove(userId);
-        }
+	public override async Task OnDisconnectedAsync(Exception? exception)
+	{
+		var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		if (userId != null)
+		{
+			var isAdmin = KeycloakHelper.UserHasRealmRole(Context.User, "admin");
+			if (isAdmin)
+			{
+				await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Admins");
+			}
+			else
+			{
+				await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Customers");
+			}
+		}
 
-        await base.OnDisconnectedAsync(exception);
-    }
+		await base.OnDisconnectedAsync(exception);
+	}
 
-    public async Task SendMessageToUser(Guid receiverId, string message)
-    {
-        if (_userConnections.TryGetValue(receiverId, out string? connectionId))
-        {
-            var chatMessage = new ChatMessage
-            {
-                Message = message,
-                SenderId = Guid.Empty,
-                ReceiverId = receiverId,
-                Timestamp = DateTime.UtcNow,
-                IsAdmin = true
-            };
+	public async Task SendMessageToUser(Guid receiverId, string message)
+	{
+		var senderId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		if (senderId == null) return;
 
-            await Clients.Client(connectionId).SendAsync("ReceiveMessage", chatMessage);
-            await Clients.Caller.SendAsync("MessageSent", chatMessage);
-        }
-        else
-        {
-            await Clients.Caller.SendAsync("ReceiveError", "User not found or not connected");
-        }
-    }
+		var conversation = await _chatRepository.GetOrCreateConversationAsync(
+			receiverId,
+			Context.User!.FindFirst("name")!.Value,
+			CancellationToken.None);
 
-    public async Task SendMessageToAdmin(string message)
-    {
-        var senderId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (senderId == null) return;
+		var newMessage = await _chatRepository.AddMessageAsync(
+			conversation.Id,
+			message,
+			true,
+			CancellationToken.None);
 
-        var chatMessage = new ChatMessage
-        {
-            Message = message,
-            SenderId = Guid.Parse(senderId),
-            ReceiverId = Guid.Empty,
-            Timestamp = DateTime.UtcNow,
-            IsAdmin = false
-        };
+		await Clients.User(receiverId.ToString()).SendAsync("ReceiveMessage", newMessage);
+		await Clients.Caller.SendAsync("MessageSent", newMessage);
+	}
 
-        await Clients.Group("Admins").SendAsync("ReceiveMessage", chatMessage);
-        await Clients.Caller.SendAsync("MessageSent", chatMessage);
-    }
+	public async Task SendMessageToAdmin(string message)
+	{
+		var senderId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		var senderName = Context.User?.FindFirst("name")?.Value;
+		if (senderId == null || senderName == null) return;
+
+		var conversation = await _chatRepository.GetOrCreateConversationAsync(
+			Guid.Parse(senderId),
+			senderName,
+			CancellationToken.None);
+
+		var newMessage = await _chatRepository.AddMessageAsync(
+			conversation.Id,
+			message,
+			false,
+			CancellationToken.None);
+
+		await Clients.Group("Admins").SendAsync("ReceiveMessage", newMessage);
+		await Clients.Caller.SendAsync("MessageSent", newMessage);
+	}
 }
-

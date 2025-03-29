@@ -5,11 +5,14 @@ builder.Services.AddReverseProxy()
 	.LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll",
-		builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+	options.AddPolicy("AllowSpecificOrigin",
+		builder => builder.WithOrigins("http://localhost:3000")
+						.AllowAnyHeader()
+						.AllowAnyMethod()
+						.AllowCredentials());
 });
 var app = builder.Build();
 
 app.MapReverseProxy();
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 app.Run();
