@@ -2,7 +2,9 @@
 {
 	public enum OrderStatus
 	{
+		PrePayment,
 		Processing,
-		Completed
+		Completed,
+		PaymentFailed
 	}
 }

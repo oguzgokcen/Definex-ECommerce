@@ -1,10 +1,5 @@
-﻿//using BuildingBlocks.CQRS;
-//using Catalog.API.Models;
-//using FluentValidation;
-//using MediatR;
-
-//namespace Catalog.API.Products.CreateProduct;
-//public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price): ICommand<CreateProductResult>;
+﻿//namespace Catalog.API.Products.CreateProduct;
+//public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price) : ICommand<CreateProductResult>;
 //public record CreateProductResult(Guid Id);
 
 //public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
@@ -26,7 +21,7 @@
 
 //		var product = new Product
 //		{
-//			Name = command.Name,
+//			Title = command.Name,
 //			Category = command.Category,
 //			Description = command.Description,
 //			ImageFile = command.ImageFile,

@@ -6,7 +6,7 @@
 		public Guid UserId { get; set; }
 		public decimal Price { get; set; }
 		public OrderStatus Status { get; set; }
-
+		public string? PaymentToken { get; set; }
 		public List<OrderItem> OrderItems{ get; set; }
 	}
 }

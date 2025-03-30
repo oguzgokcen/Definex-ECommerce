@@ -1,5 +1,5 @@
 ﻿using Ordering.API.Repositories;
-using Ordering.API.Data.Entities;
+using Ordering.API.Services;
 
 namespace Ordering.API.Features.CreateOrder
 {
@@ -7,11 +7,13 @@ namespace Ordering.API.Features.CreateOrder
 	{
 		private readonly IGenericRepository<Order> _orderRepository;
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IPaymentService _paymentService;
 
-		public CreateOrderHandler(IGenericRepository<Order> orderRepository , IUnitOfWork unitOfWork)
+		public CreateOrderHandler(IGenericRepository<Order> orderRepository , IUnitOfWork unitOfWork, IPaymentService paymentService)
 		{
 			_orderRepository = orderRepository;
 			_unitOfWork = unitOfWork;
+			_paymentService = paymentService;
 		}
 
 		public async Task<CreateOrderResponse> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
@@ -20,7 +22,7 @@ namespace Ordering.API.Features.CreateOrder
 			{
 				UserId = command.UserId,
 				Price = command.Price,
-				Status = OrderStatus.Processing,
+				Status = OrderStatus.PrePayment,
 				OrderItems = command.Items.Select(item => new OrderItem
 				{
 					ProductId = item.ProductId,
@@ -28,13 +30,16 @@ namespace Ordering.API.Features.CreateOrder
 				}).ToList()
 			};
 
+			var paymentResponse = await _paymentService.Pay(new CreatePaymentDto(order.Id.ToString(),command.UserId.ToString(),command.UserName,command.UserEmail,command.UserPhone,order.Id.ToString(),order.Id.ToString(),order.Price),cancellationToken);
+
+			order.PaymentToken = paymentResponse.token;
 			await _orderRepository.AddAsync(order, cancellationToken);
 			await _unitOfWork.SaveChangesAsync(cancellationToken);
 
 			return new CreateOrderResponse
 			{
 				IsSuccess = true,
-				OrderId = order.Id
+				PaymentPageUrl = paymentResponse.PaymentUrl,
 			};
 		}
 	}

@@ -11,6 +11,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="Carter" Version="8.2.1" />
+	  <PackageReference Include="Iyzipay" Version="2.1.67" />
 	  <PackageReference Include="Marten" Version="7.37.3" />
 	  <PackageReference Include="MediatR" Version="12.4.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
@@ -28,10 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\CommonConcerns\CommonConcerns.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>

@@ -10,5 +10,12 @@ namespace Ordering.API.Repositories
 		{
 			_dbSet = context.Set<Order>();
 		}
-    }
+
+		public async Task<Order> GetByPaymentToken(string paymentToken)
+		{
+			var order = await _dbSet.Where(x => x.PaymentToken == paymentToken).FirstOrDefaultAsync();
+			return order;
+		}
+
+	}
 }

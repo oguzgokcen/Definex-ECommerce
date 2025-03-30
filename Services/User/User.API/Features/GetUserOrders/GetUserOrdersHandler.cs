@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Diagnostics;
-using Ordering.API.Data.Entities;
-using Ordering.API.Repositories;
 
 namespace Ordering.API.Features.GetUserOrders
 {
@@ -24,6 +21,7 @@ namespace Ordering.API.Features.GetUserOrders
 				Price = order.Price,
                 CreatedOnUtc = order.CreatedDate,
                 Id = order.Id,
+                OrderStatus = order.Status,
 				BasketItems = order.OrderItems.Select(item => new BasketItemDto
                 {
                     ProductId = item.ProductId,

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Ordering.API.Data;
 using System.Security.Claims;
-using Ordering.API.Repositories;
+using Ordering.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var assembly = typeof(Program).Assembly;
@@ -22,6 +22,9 @@ builder.Services.AddDbContext<OrderDbContext>((sp,options)=>{
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<IyzicoOptions>(builder.Configuration.GetSection("Iyzico"));
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddJwtBearer(options =>
