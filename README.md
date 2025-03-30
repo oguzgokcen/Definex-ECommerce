@@ -17,3 +17,12 @@
 ## Chat Api:
 - Kullanıcıların müşteri hizmetleriyle mesajlajması için gerekli operasyonları gerçekleştirir.
 - Mesajları Postrgesql document dbde tutar.
+
+## Çalıştırmak için:
+docker compose up komutu ile docker dosyasını çalıştırın.
+Daha sonra gateway https diğer servisleri http config'inde çalıştırın. 
+Keycloak config :
+Realm adı : e-commerce
+Client: public-client
+
+Admin rolü için realm rolesta kullanıcıya "admin" rolü ekleyin. 
