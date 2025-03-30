@@ -53,7 +53,7 @@ export default {
     'bootstrap-vue/nuxt',
   ],
   axios: {
-    baseUrl: 'https://localhost:5054'
+    baseUrl: 'https://localhost:5054/api'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

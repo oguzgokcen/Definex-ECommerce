@@ -64,8 +64,8 @@ export default {
                 const code = this.$route.query.code;
                 
                 if (!code) {
-                    // If no code, redirect to Keycloak login
-                    window.location.href = 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/auth?client_id=public-client&response_type=code&scope=openid email&redirect_uri=http://localhost:3000/';
+                    console.log(this.$route.query)
+                    window.location.href = 'http://localhost:8080/realms/e-commerce/protocol/openid-connect/auth?client_id=public-client&response_type=code&redirect_uri=http://localhost:3000/login';
                     return;
                 }
 

@@ -199,7 +199,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'checkout-1',
-
+    middleware: 'auth',
     data() {
         return {
             title: 'Checkout',
@@ -285,11 +285,12 @@ export default {
                 });
 
                 if (response.data) {
-                    // Clear cart after successful order
                     this.$store.dispatch('cart/clearCart');
-                    alert("Order placed Successfully! Thank you for shopping with us.");
-                    // Redirect to orders page
-                    this.$router.push('/my-account/orders');
+                    if (response.data.paymentPageUrl) {
+                        window.location.href = response.data.paymentPageUrl;
+                    } else {
+                        alert("Failed to place order(server error). Please try again.");
+                    }
                 }
             } catch (error) {
                 console.error('Order creation failed:', error);

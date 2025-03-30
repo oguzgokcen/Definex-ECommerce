@@ -1,5 +1,15 @@
 <template>
     <div class="myaccount-content">
+        <!-- Success Popup -->
+        <div v-if="showSuccessPopup" class="success-popup">
+            <div class="success-content">
+                <i class="fas fa-check-circle"></i>
+                <h3>Sipariş Başarıyla Oluşturuldu!</h3>
+                <p>Siparişiniz başarıyla oluşturuldu. Sipariş detaylarınızı aşağıda görebilirsiniz.</p>
+                <button @click="closeSuccessPopup">Tamam</button>
+            </div>
+        </div>
+
         <h4 class="title">Orders</h4>
         <div class="table_page table-responsive">
             <table>
@@ -56,12 +66,18 @@ export default {
                     text: 'Orders',
                 }
             ],
+            showSuccessPopup: false,
         }
     },
     async mounted() {
         // For scroll page top for every Route 
         window.scrollTo(0, 0);
         await this.fetchOrders();
+        
+        // Check for success parameter in route
+        if (this.$route.query.success === 'true') {
+            this.showSuccessPopup = true;
+        }
     },
     methods: {
         async fetchOrders() {
@@ -95,10 +111,10 @@ export default {
         },
         getOrderStatus(orderStatus) {
             const statusMap = {
-                0: 'PENDING',
-                1: 'PROCESSING',
-                2: 'COMPLETED',
-                3: 'CANCELLED'
+                0: 'Ödeme Bekleniyor',
+                1: 'Ödeme Tamamlandı',
+                2: 'Sipariş Tamamlandı',
+                3: 'Ödeme Başarısız'
             };
             return statusMap[orderStatus] || 'UNKNOWN';
         },
@@ -114,10 +130,15 @@ export default {
             const statusClasses = {
                 'COMPLETED': 'success',
                 'PROCESSING': 'processing',
-                'PENDING': 'pending',
-                'CANCELLED': 'cancelled'
+                'PRE_PAYMENT': 'pending',
+                'PAYMENT_FAILED': 'cancelled'
             };
             return statusClasses[status] || '';
+        },
+        closeSuccessPopup() {
+            this.showSuccessPopup = false;
+            // Remove the success parameter from URL
+            this.$router.replace({ query: { ...this.$route.query, success: undefined } });
         },
     },
     // Page head() Title, description for SEO 
@@ -157,5 +178,57 @@ export default {
     color: #dc3545;
     font-weight: 500;
     padding: 10px;
+}
+
+.success-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.success-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-content i {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.success-content h3 {
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.success-content p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.success-content button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.success-content button:hover {
+    background-color: #218838;
 }
 </style>
