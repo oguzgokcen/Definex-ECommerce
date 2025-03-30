@@ -1,6 +1,6 @@
 ## E-commerce Frontend Kullanılan teknolojiler:
 ### Axios: http requestleri için
-### microsoft@signalR : mesajlajma işlevi için
+### microsoft@signalR : mesajlaşma işlevi için
 
 - Admin url: /vendor-dashboard
 ### Auth.js : kullanıcıyi server tarafında autorize etmeyi sağlayan verileri tutar. Ayrıca jwt-decode ile kullanıcıların rolüne göre admin sayfasına access verebilir.
